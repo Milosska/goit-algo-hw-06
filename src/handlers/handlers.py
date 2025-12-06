@@ -3,6 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from typing import Any
 from src.constants import coordinates, graph_title
+from src.algorithms import bfs_algorithm, dfs_algorithm
 
 
 def handle_help():
@@ -10,6 +11,7 @@ def handle_help():
         "Commands available:"
         "\n  b -- build the graph"
         "\n  i -- get graph analysis"
+        "\n  c -- compare DFS and BFS algorithms"
         "\n  h -- show available commands"
         "\n  q -- quit the program"
         "\n"
@@ -72,3 +74,17 @@ def handle_info(graph) -> None:
         f"{' ' * 4}Середній коефіцієнт кластеризації: {math.ceil(clustering * 10000) / 10000}\n"
         f"{' ' * 4}Середній коефіцієнт центральності: {math.ceil(avg_centrality * 10000) / 10000}\n"
     )
+
+
+def handle_compare_bfs_and_dfs(graph: nx.Graph):
+    print(f"Start comparing DFS and BFS algorithms for graph '{graph_title}'.")
+
+    print("Running BFS algorithm...")
+    bfs_visit_sequence = bfs_algorithm(graph)
+    print(f"\nVertex sequence wirh BFS: {' --> '.join(bfs_visit_sequence)}\n")
+
+    print("Running DFS algorithm...")
+    dfs_visit_sequence = dfs_algorithm(graph)
+    print(f"\nVertex sequence wirh DFS: {' --> '.join(dfs_visit_sequence)}\n")
+
+    print("Comparison completed.")

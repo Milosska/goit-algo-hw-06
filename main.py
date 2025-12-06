@@ -1,6 +1,11 @@
 from src.constants import Command
 from src.helpers import parse_input, initialize_graph
-from src.handlers import handle_help, handle_graph_build, handle_info
+from src.handlers import (
+    handle_help,
+    handle_graph_build,
+    handle_info,
+    handle_compare_bfs_and_dfs,
+)
 
 
 def main():
@@ -25,6 +30,9 @@ def main():
 
             case Command.INFO:
                 handle_info(obuchiv_graph)
+
+            case Command.COMPARE:
+                handle_compare_bfs_and_dfs(obuchiv_graph)
 
             case _:
                 print("Invalid command. Please, use one of the listed below.")
