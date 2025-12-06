@@ -7,6 +7,7 @@ class Command(Enum):
     BUILD = "b"
     INFO = "i"
     COMPARE = "c"
+    DIJKSTRA = "d"
 
 
 graph_title = "Міста та селища Обухівсього району Київської області"

@@ -3,17 +3,17 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from typing import Any
 from src.constants import coordinates, graph_title
-from src.algorithms import bfs_algorithm, dfs_algorithm
+from src.algorithms import bfs_algorithm, dfs_algorithm, dijkstra_algorithm
 
 
 def handle_help():
     print(
-        "Commands available:"
-        "\n  b -- build the graph"
-        "\n  i -- get graph analysis"
-        "\n  c -- compare DFS and BFS algorithms"
-        "\n  h -- show available commands"
-        "\n  q -- quit the program"
+        "Доступні команди:"
+        "\n  b -- побудувати граф"
+        "\n  i -- отримати аналітику по графу"
+        "\n  c -- порівняти DFS та BFS алгоритми"
+        "\n  h -- показати доступні команди"
+        "\n  q -- вихід з програми"
         "\n"
     )
 
@@ -52,7 +52,7 @@ def handle_graph_build(graph: nx.Graph) -> None:
     plt.show()
 
 
-def handle_info(graph) -> None:
+def handle_info(graph: nx.Graph) -> None:
     num_nodes = graph.number_of_nodes()
     num_edges = graph.number_of_edges()
     is_connected = nx.is_connected(graph)
@@ -77,14 +77,31 @@ def handle_info(graph) -> None:
 
 
 def handle_compare_bfs_and_dfs(graph: nx.Graph):
-    print(f"Start comparing DFS and BFS algorithms for graph '{graph_title}'.")
+    print(f"Починаємо порівняння DFS та BFS алгоритмів для графу '{graph_title}'.")
 
-    print("Running BFS algorithm...")
+    print("Запускаємо BFS алгоритм...")
     bfs_visit_sequence = bfs_algorithm(graph)
-    print(f"\nVertex sequence wirh BFS: {' --> '.join(bfs_visit_sequence)}\n")
+    print(
+        f"\nПослідовність вершин для BFS алгоритму: {' --> '.join(bfs_visit_sequence)}\n"
+    )
 
-    print("Running DFS algorithm...")
+    print("Запускаємо DFS алгоритм...")
     dfs_visit_sequence = dfs_algorithm(graph)
-    print(f"\nVertex sequence wirh DFS: {' --> '.join(dfs_visit_sequence)}\n")
+    print(
+        f"\nПослідовність вершин для DFS алгоритму: {' --> '.join(dfs_visit_sequence)}\n"
+    )
 
-    print("Comparison completed.")
+    print("Порівняння завершено.")
+
+
+def handle_dijkstra(graph: nx.Graph):
+    print(f"Запускаємо алгоритм Дейкстри для графу '{graph_title}'.")
+    node_min_distances = dijkstra_algorithm(graph)
+
+    print("Найменші відстані від населеного пункту Обухів:")
+    for node, node_info in node_min_distances.items():
+        print(
+            f"{' ' * 4}{node}: {' --> '.join(node_info.path)}. Протяжність маршруту {node_info.distance} км"
+        )
+
+    print("Розрахунок відстаней завершено.")
